@@ -6,8 +6,7 @@ para organizar pacotes de viagem em várias categorias, como "Aventura", "Cultur
 oferecendo uma variedade de opções para atender a diferentes interesses e estilos de viagem.
 
 Além disso, o sistema é altamente modular e segue os princípios da Programação Orientada a Objetos (POO), 
-usando técnicas de modularização, herança, polimorfismo, e padrões de projeto. Isso garante que a plataforma 
-seja flexível, extensível e mantenível. A plataforma também enfatiza a segurança e integridade dos dados, 
+usando técnicas de modularização, herança, polimorfismo, e padrões de projeto. Isso garante que a plataforma seja flexível, extensível e mantenível. A plataforma também enfatiza a segurança e integridade dos dados, 
 implementando métodos de persistência robustos, seja por meio de arquivos ou de um sistema de banco de dados.
 
 Os administradores têm a capacidade de gerenciar o conteúdo do sistema, adicionando, editando
