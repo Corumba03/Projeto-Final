@@ -13,13 +13,15 @@ public class Destino {
     private Set<Atracao> atracoes; // Lista de atrações do local de destino
     private Set<PontoTuristico> pontosTuristicos; // Lista dos principais pontos turísticos
     private List<Avaliacao> avaliacoes; // Lista de avaliações/comentários de turistas sobre o destino
+    private String info; // Informações gerais sobre o destino (clima, idioma, cultura, etc)
     private Duration duracao; // Duração da viagem em dias
     private String preco; // Custo da viagem // TODO implementar com um tipo mais adequado
 
-    public Destino(String nome, String resumo, String desc, Duration duracao, String preco) {
+    public Destino(String nome, String resumo, String desc, Duration duracao, String preco, String info) {
         this.nome = nome;
         this.resumo = resumo;
         this.desc = desc;
+        this.info = info;
         this.duracao = duracao;
         this.preco = preco;
         this.atracoes = new HashSet<>();
@@ -94,6 +96,16 @@ public class Destino {
     public void setDuracao(Duration duracao) {
         this.duracao = duracao;
     }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+    // Outros métodos
+
     public void addAtracao(Atracao atracao){
         this.atracoes.add(atracao);
     }
