@@ -17,5 +17,4 @@ e destinos, e fazer reservas.
 O sistema também é projetado para lidar com situações excepcionais, como tentativas de reserva em
 datas indisponíveis, garantindo que os usuários recebam feedback adequado e evitando frustrações.
 
-Além disso, com a aplicação do padrão Observer, os usuários podem ser notificados sobre ofertas espe-
-ciais, promoções e novidades, incentivando a interação e o engajamento contínuo com a plataforma.
+Além disso, com a aplicação do padrão Observer, os usuários podem ser notificados sobre ofertas especiais, promoções e novidades, incentivando a interação e o engajamento contínuo com a plataforma.
