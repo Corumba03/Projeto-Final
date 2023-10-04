@@ -15,9 +15,9 @@ public class Destino {
     private List<Avaliacao> avaliacoes; // Lista de avaliações/comentários de turistas sobre o destino
     private String info; // Informações gerais sobre o destino (clima, idioma, cultura, etc)
     private Duration duracao; // Duração da viagem em dias
-    private String preco; // Custo da viagem // TODO implementar com um tipo mais adequado
+    private double preco; // Custo da viagem //
 
-    public Destino(String nome, String resumo, String desc, Duration duracao, String preco, String info) {
+    public Destino(String nome, String resumo, String desc, Duration duracao, double preco, String info) {
         this.nome = nome;
         this.resumo = resumo;
         this.desc = desc;
@@ -45,11 +45,11 @@ public class Destino {
         this.duracao = Duration.ofDays(duracao);
     }
 
-    public String getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(String preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 

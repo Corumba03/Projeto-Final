@@ -1,6 +1,7 @@
 package pacotes_viagem;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Atividade {
@@ -15,8 +16,9 @@ public class Atividade {
     private String disponibilidade; // Informações sobre quando a atividade está disponível (por exemplo, duranto o ano, apenas no verão). TODO implementar com um tipo melhor
     private String cuidados; //Restrições e cuidados da atividade
     private List<String> equipamentos; // Lista de equipamentos necessários
+    private double preco; // Preço da atividade
 
-    public Atividade(String nome, String resumo, String desc, Dificuldade dificuldade, Duration duracao, String disponibilidade, String cuidados, List<String> equipamentos) {
+    public Atividade(String nome, String resumo, String desc, Dificuldade dificuldade, Duration duracao, String disponibilidade, String cuidados, double preco) {
         this.nome = nome;
         this.resumo = resumo;
         this.desc = desc;
@@ -24,7 +26,8 @@ public class Atividade {
         this.duracao = duracao;
         this.disponibilidade = disponibilidade;
         this.cuidados = cuidados;
-        this.equipamentos = equipamentos;
+        this.preco = preco;
+        this.equipamentos = new ArrayList<>();
     }
 
     public String getNome() {
@@ -89,6 +92,14 @@ public class Atividade {
 
     public void setEquipamentos(List<String> equipamentos) {
         this.equipamentos = equipamentos;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
     // Outros métodos

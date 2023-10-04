@@ -2,6 +2,7 @@ package usuarios;
 
 public class Usuario {
     private String nome;
+    private String cpf;
     private String login;
     private String senha;
     private String email;
@@ -43,5 +44,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
