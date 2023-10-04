@@ -8,21 +8,15 @@ import java.util.Set;
 
 public class Destino {
     private String nome; // Nome do local de destino da viagem
-    private String resumo; // Descrição breve da viagem
-    private String desc; // Descrição detalhada da viagem
     private Set<Atracao> atracoes; // Lista de atrações do local de destino
     private Set<PontoTuristico> pontosTuristicos; // Lista dos principais pontos turísticos
     private List<Avaliacao> avaliacoes; // Lista de avaliações/comentários de turistas sobre o destino
     private String info; // Informações gerais sobre o destino (clima, idioma, cultura, etc)
-    private Duration duracao; // Duração da viagem em dias
-    private double preco; // Custo da viagem //
+    private double preco; // Custo da viagem
 
     public Destino(String nome, String resumo, String desc, Duration duracao, double preco, String info) {
         this.nome = nome;
-        this.resumo = resumo;
-        this.desc = desc;
         this.info = info;
-        this.duracao = duracao;
         this.preco = preco;
         this.atracoes = new HashSet<>();
         this.pontosTuristicos = new HashSet<>();
@@ -37,36 +31,12 @@ public class Destino {
         this.nome = nome;
     }
 
-    public Duration getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(int duracao) {
-        this.duracao = Duration.ofDays(duracao);
-    }
-
     public double getPreco() {
         return preco;
     }
 
     public void setPreco(double preco) {
         this.preco = preco;
-    }
-
-    public String getResumo() {
-        return resumo;
-    }
-
-    public void setResumo(String resumo) {
-        this.resumo = resumo;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public Set<Atracao> getAtracoes() {
@@ -91,10 +61,6 @@ public class Destino {
 
     public void setAvaliacoes(List<Avaliacao> avaliacoes) {
         this.avaliacoes = avaliacoes;
-    }
-
-    public void setDuracao(Duration duracao) {
-        this.duracao = duracao;
     }
 
     public String getInfo() {
@@ -136,8 +102,5 @@ public class Destino {
     }
     public void addPontoTuristico(PontoTuristico pontoTuristico){
         this.pontosTuristicos.add(pontoTuristico);
-    }
-    public void extenderDuracao(int numDias){
-        this.duracao = duracao.plusDays(numDias);
     }
 }
