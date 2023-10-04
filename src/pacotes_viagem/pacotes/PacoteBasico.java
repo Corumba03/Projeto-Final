@@ -1,4 +1,4 @@
-package pacotes_viagem;
+package pacotes_viagem.pacotes;
 
 public class PacoteBasico extends PacoteViagem{
     private static double basicoLimitePreco; // Limite inferior de preço

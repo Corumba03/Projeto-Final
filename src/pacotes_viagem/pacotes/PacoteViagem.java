@@ -1,6 +1,9 @@
-package pacotes_viagem;
+package pacotes_viagem.pacotes;
 
 import Exceptions.CategoriaInexistenteException;
+import pacotes_viagem.Atividade;
+import pacotes_viagem.Avaliacao;
+import pacotes_viagem.Viagem;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -10,12 +13,12 @@ import java.util.Set;
 public abstract class  PacoteViagem {
     private String categoria; // A categoria (Aventura, Relaxamento, Cultura, etc) do pacote
     protected PlanoPacote plano; // Premium, Basico, Lite
-    private Destino destino; // Destino da viagem
+    private Viagem viagem; // Destino da viagem
     private Set<Atividade> atividades; // Lista de atividades inclusas no pacote
     private Set<LocalDate> datasDisponiveis; // Lista de datas disponíveis para o pacote
     private List<Avaliacao> avaliacoes; // Lista de avaliações/comentários de turistas sobre o pacote
     private double precoBase;
-    private int descontoBase; // Desconto percentual base
+    private double descontoBase; // Desconto percentual base (é convertido para decimal)
 
     public PacoteViagem(String categoria, double descontoBase) {
         try {
@@ -31,6 +34,7 @@ public abstract class  PacoteViagem {
         this.atividades = new HashSet<>();
         this.datasDisponiveis = new HashSet<>();
         this.plano = PlanoPacote.Basico;
+        this.descontoBase = descontoBase / 100;
     }
 
     public String getCategoria() {
@@ -81,13 +85,22 @@ public abstract class  PacoteViagem {
         this.plano = plano;
     }
 
-    public Destino getDestino() {
-        return destino;
+    public Viagem getViagem() {
+        return viagem;
     }
 
-    public void setDestino(Destino destino) {
-        this.destino = destino;
+    public void setViagem(Viagem viagem) {
+        this.viagem = viagem;
     }
+
+    public double getDescontoBase() {
+        return descontoBase;
+    }
+
+    public void setDescontoBase(double descontoBase) {
+        this.descontoBase = descontoBase;
+    }
+
     // Outros métodos
 
     public void atualizarPreco(){
@@ -95,7 +108,7 @@ public abstract class  PacoteViagem {
         for (Atividade atividade : this.atividades){
             preco_atividades += atividade.getPreco();
         }
-        this.precoBase = (this.destino.getPreco() + preco_atividades) * (1 - this.descontoBase); // Preço da passagem + preço das atividades - descontos
+        this.precoBase = (this.viagem.getPreco() + preco_atividades) * (1 - this.descontoBase); // Preço da passagem + preço das atividades - descontos
     }
 
     public void addAvaliacao(Avaliacao avaliacao){
