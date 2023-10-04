@@ -7,16 +7,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class PacoteViagem {
+public abstract class  PacoteViagem {
     private String categoria; // A categoria (Aventura, Relaxamento, Cultura, etc) do pacote
-    private Set<Atividade> atividades;
-    private Set<LocalDate> datasDisponiveis;
+    protected PlanoPacote plano; // Premium, Basico, Lite
+    private Destino destino; // Destino da viagem
+    private Set<Atividade> atividades; // Lista de atividades inclusas no pacote
+    private Set<LocalDate> datasDisponiveis; // Lista de datas disponíveis para o pacote
     private List<Avaliacao> avaliacoes; // Lista de avaliações/comentários de turistas sobre o pacote
-    private String precoBase;
+    private double precoBase;
+    private int descontoBase; // Desconto percentual base
 
-    public PacoteViagem(String categoria, String precoBase) {
+    public PacoteViagem(String categoria, double descontoBase) {
         try {
-            if (!Categorias.getCategorias().contains(categoria)){
+            if (!CategoriaPacote.getCategoriasPacote().contains(categoria)){
                 throw new CategoriaInexistenteException("Categoria não consta no sistema");
             }
             this.categoria = categoria;
@@ -24,9 +27,10 @@ public class PacoteViagem {
         catch (CategoriaInexistenteException e){
             System.err.println("Erro ao criar pacote de viagem: " + e.getMessage());
         }
-        this.precoBase = precoBase;
+        this.precoBase = 0.0; // Preço será definido pelo preço do destino e das atividades
         this.atividades = new HashSet<>();
         this.datasDisponiveis = new HashSet<>();
+        this.plano = PlanoPacote.Basico;
     }
 
     public String getCategoria() {
@@ -53,7 +57,7 @@ public class PacoteViagem {
         this.datasDisponiveis = datasDisponiveis;
     }
 
-    public String getPrecoBase() {
+    public double getPrecoBase() {
         return precoBase;
     }
 
@@ -65,8 +69,33 @@ public class PacoteViagem {
         this.avaliacoes = avaliacoes;
     }
 
-    public void setPrecoBase(String precoBase) {
+    public void setPrecoBase(double precoBase) {
         this.precoBase = precoBase;
+    }
+
+    public PlanoPacote getPlano() {
+        return plano;
+    }
+
+    public void setPlano(PlanoPacote plano) {
+        this.plano = plano;
+    }
+
+    public Destino getDestino() {
+        return destino;
+    }
+
+    public void setDestino(Destino destino) {
+        this.destino = destino;
+    }
+    // Outros métodos
+
+    public void atualizarPreco(){
+        double preco_atividades = 0.0;
+        for (Atividade atividade : this.atividades){
+            preco_atividades += atividade.getPreco();
+        }
+        this.precoBase = (this.destino.getPreco() + preco_atividades) * (1 - this.descontoBase); // Preço da passagem + preço das atividades - descontos
     }
 
     public void addAvaliacao(Avaliacao avaliacao){
