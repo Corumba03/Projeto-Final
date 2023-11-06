@@ -1,6 +1,6 @@
 package pacotes_viagem;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +8,7 @@ public class Viagem {
     private Destino destino; // Destino da viagem
     private String pontoSaida; // De onde o voo sai
     private double precoBase; // Preço por pessoa
-    private Set<LocalDate> datasDisponiveis;
+    private Set<LocalDateTime> datasDisponiveis;
 
     public Viagem(Destino destino, String pontoSaida, double precoBase) {
         this.destino = destino;
@@ -41,15 +41,15 @@ public class Viagem {
         this.precoBase = precoBase;
     }
 
-    public Set<LocalDate> getDatasDisponiveis() {
+    public Set<LocalDateTime> getDatasDisponiveis() {
         return datasDisponiveis;
     }
 
-    public void setDatasDisponiveis(Set<LocalDate> datasDisponiveis) {
+    public void setDatasDisponiveis(Set<LocalDateTime> datasDisponiveis) {
         this.datasDisponiveis = datasDisponiveis;
     }
     // Outros métodos
-   public void addData(LocalDate data){
+   public void addData(LocalDateTime data){
         this.datasDisponiveis.add(data);
    }
 }

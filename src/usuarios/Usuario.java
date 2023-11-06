@@ -1,13 +1,14 @@
 package usuarios;
 
+
 public class Usuario {
     private String nome;
     private String cpf;
     private String login;
-    private String senha;
+    private char[] senha;
     private String email;
 
-    public Usuario(String nome, String login, String senha, String email) {
+    public Usuario(String nome, String login, char[] senha, String email) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -30,11 +31,11 @@ public class Usuario {
         this.login = login;
     }
 
-    public String getSenha() {
+    public char[] getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(char[] senha) {
         this.senha = senha;
     }
 
