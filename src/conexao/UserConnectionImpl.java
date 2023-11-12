@@ -91,16 +91,16 @@ public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
         return this.destinos;
     }
     
-    public void criarUsuario(Usuario usuario) {
+    public static void criarUsuario(Usuario usuario) {
     }
 
-    public void removerUsuario(int id) {
+    public static void removerUsuario(int id) {
     }
 
-    public void editarUsuario(int id, String campo, String dado) {
+    public static void editarUsuario(int id, String campo, String dado) {
     }
 
-    public List<Usuario> listarUsuarios() {
+    public static List<Usuario> listarUsuarios() {
         return new ArrayList<>();
     }
 
