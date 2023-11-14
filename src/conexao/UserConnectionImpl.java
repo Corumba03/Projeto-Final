@@ -14,14 +14,13 @@ import usuarios.Usuario;
 
 public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
 
-    Connection conexao;
+    public static Connection conexao;
 
     private Map<String, String> dados = new HashMap<>();
     private Map<String, String> destinos = new HashMap<>();
 
     public UserConnectionImpl(Connection conexao) {
         try {
-            this.conexao = conexao;
             // Carregando o Driver JDBC
             Class.forName("org.sqlite.JDBC");
 
@@ -29,6 +28,8 @@ public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+    public static void setConexao(Connection con){ conexao = con; }
 
     public Map<String, String> consultarDados(int id) {
         // Executar Consultas SQL
@@ -49,6 +50,8 @@ public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
                 System.out.println(dados);
             }
 
+            resultSet.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println(e.getErrorCode() + ": " + e.getMessage());
         }
@@ -80,9 +83,7 @@ public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
             }
 
             // Fechando recursos
-            resultSet.close();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             System.out.println("UserConnectionError");
             System.out.println("--> " + e.getErrorCode() + ": " + e.getMessage());
@@ -92,16 +93,73 @@ public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
     }
     
     public static void criarUsuario(Usuario usuario) {
+        String qry = String.format("INSERT INTO DM_USUARIOS (CPF, NOME, LAST_UPDATE, ID_PACOTE) VALUES ('%s', '%s', CURRENT_TIMESTAMP, %s)", usuario.getCpf(), usuario.getNome(), usuario.getTipoPacote());
+        // System.out.println(qry);
+        try{
+            PreparedStatement stt = connection.prepareStatement(qry);
+            int numOperacao = stt.executeUpdate();
+            System.out.println(numOperacao + ". Inserção bem sucedida.");
+        } catch (SQLException e){
+            System.out.println("--> UserConnection creation:");
+            System.out.println(String.format("%d: %s", e.getErrorCode(), e.getMessage()));
+        }
     }
 
-    public static void removerUsuario(int id) {
+    public static void removerUsuario(String cpf) {
+        // Query SQL para deletar a linha com base no CPF
+        String query = String.format("DELETE FROM DM_USUARIOS WHERE CPF = %s", cpf);
+
+        try {
+
+            // Preparar a declaração SQL
+            PreparedStatement stt = connection.prepareStatement(query);
+
+            // Executar a query
+            int numOperacao = stt.executeUpdate();
+            System.out.println(numOperacao + ". Usuario deletado com sucesso.");
+
+            // Fechar recursos
+            stt.close();
+
+        } catch (SQLException e) {
+            System.out.println("--> UserConnection removal:");
+            System.out.println(String.format("%d: %s", e.getErrorCode(), e.getMessage()));
+        }
     }
 
     public static void editarUsuario(int id, String campo, String dado) {
     }
 
     public static List<Usuario> listarUsuarios() {
-        return new ArrayList<>();
-    }
+        List<Usuario> usuarios = new ArrayList<>();
+        // Executar Consultas SQL
+        String qry = "SELECT * FROM DM_USUARIOS";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(qry);
 
+            // Processando Resultados
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                usuarios.add(new Usuario(
+                    resultSet.getString("CPF"),
+                    resultSet.getString("NOME"),
+                    // resultSet.getString("LOGIN"),
+                    "loginGenerico",
+                    // resultSet.getString("SENHA"),
+                    "SenhaGenerica",
+                    // resultSet.getString("EMAIL"),
+                    "EmailGenerico",
+                    resultSet.getInt("ID_PACOTE")
+                    ));
+            }
+
+            // Fechando recursos
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            System.out.println("UserConnectionError");
+            System.out.println("--> " + e.getErrorCode() + ": " + e.getMessage());
+        }
+        return usuarios;
+    }
 }

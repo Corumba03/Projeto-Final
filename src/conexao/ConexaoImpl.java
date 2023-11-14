@@ -16,7 +16,7 @@ public class ConexaoImpl implements Conexao{
             Class.forName("org.sqlite.JDBC");
             
             // Estabelecer a Conexão
-            this.connection = DriverManager.getConnection(url);
+            connection = DriverManager.getConnection(url);
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Erro: " + e.getMessage());
