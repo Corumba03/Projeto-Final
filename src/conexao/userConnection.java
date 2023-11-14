@@ -1,11 +1,7 @@
 package conexao;
 
-import java.sql.Connection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import usuarios.Usuario;
 
 interface UserConnection{
 
