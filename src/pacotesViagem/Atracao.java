@@ -1,4 +1,4 @@
-package pacotes_viagem;
+package pacotesViagem;
 
 public class Atracao {
 }

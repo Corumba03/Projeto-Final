@@ -1,4 +1,4 @@
-package pacotes_viagem;
+package pacotesViagem;
 
 import java.util.HashSet;
 import java.util.Set;

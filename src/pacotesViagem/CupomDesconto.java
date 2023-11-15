@@ -1,4 +1,4 @@
-package pacotes_viagem;
+package pacotesViagem;
 
 public class CupomDesconto {
     private double desconto; // Valor percentual do desconto (o valor é convertido para decimal)

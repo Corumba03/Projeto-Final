@@ -1,9 +1,9 @@
-package pacotes_viagem.pacotes;
+package pacotesViagem.pacotes;
 
 import Exceptions.CategoriaInexistenteException;
-import pacotes_viagem.Atividade;
-import pacotes_viagem.Avaliacao;
-import pacotes_viagem.Viagem;
+import pacotesViagem.Atividade;
+import pacotesViagem.Avaliacao;
+import pacotesViagem.Viagem;
 
 import java.time.LocalDate;
 import java.util.HashSet;

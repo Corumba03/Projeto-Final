@@ -1,10 +1,12 @@
 package usuarios;
 
+import pacotesViagem.pacotes.PacoteViagem;
+
 import java.util.List;
-import pacotes_viagem.PacoteViagem;
+
 
 public class Usuario {
-    private String cpf;
+    private final String cpf;
     private String nome;
     private String login;
     private String senha;
@@ -33,6 +35,21 @@ public class Usuario {
 
     public int getTipoPacote() { return tipoPacote; }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     // TODO adicionar exception: pacotesViagemInexistenteException
     public void adicionarPacote(PacoteViagem pacote){

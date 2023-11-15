@@ -1,6 +1,6 @@
 package forms;
 
-import pacotes_viagem.Destino;
+import pacotesViagem.Destino;
 import usuarios.Usuario;
 
 import java.time.LocalDate;

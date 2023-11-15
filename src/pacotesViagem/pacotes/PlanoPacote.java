@@ -1,4 +1,4 @@
-package pacotes_viagem.pacotes;
+package pacotesViagem.pacotes;
 
 public enum PlanoPacote {
     Premium, Basico, Lite

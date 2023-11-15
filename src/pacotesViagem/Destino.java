@@ -1,4 +1,4 @@
-package pacotes_viagem;
+package pacotesViagem;
 
 import java.time.Duration;
 import java.util.ArrayList;

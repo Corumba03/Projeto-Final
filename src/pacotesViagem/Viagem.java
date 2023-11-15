@@ -1,4 +1,4 @@
-package pacotes_viagem;
+package pacotesViagem;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
