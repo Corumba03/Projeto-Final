@@ -26,14 +26,9 @@ public final class Tela extends JFrame implements ActionListener {
 
 
         // Criando um botão
-        JButton botaoLogin = new JButton("Login");
-        botaoLogin.setBounds(largura/2 - 130, 450, 250, 70);
-        botaoLogin.setForeground(new Color(239, 243, 239));
-        botaoLogin.setBackground(new Color(78, 162, 204));
-        botaoLogin.setFont(arialTitulo);
-        componentes.add(botaoLogin);
-
-        botaoLogin.addActionListener(this);
+        BotaoLogin botaoLogin = BotaoLogin.getInstance(largura, arialTitulo);
+        componentes.add(botaoLogin.getBotaoLogin());
+        botaoLogin.getBotaoLogin().addActionListener(this);
 
         // Criando campo de email
         JTextField email = new JTextField();
@@ -59,6 +54,8 @@ public final class Tela extends JFrame implements ActionListener {
         senhaLabel.setFont(arial);
         componentes.add(senhaLabel);
 
+        //
+
         // Adicionando os componentes da tela
         for (JComponent componente : componentes){
             System.out.println(componente);
@@ -78,6 +75,7 @@ public final class Tela extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(null, "funciona!", "Titulo", JOptionPane.WARNING_MESSAGE);
-        remove(this);
+        this.getContentPane().removeAll();
+        this.repaint();
     }
 }
