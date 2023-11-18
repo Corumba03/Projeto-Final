@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class Tela extends JFrame implements ActionListener {
@@ -15,6 +16,22 @@ public final class Tela extends JFrame implements ActionListener {
     private final List<JComponent> componentes;
     private final int altura;
     private final int largura;
+
+    JButton botaoCadastro;
+    BotaoLogin botaoLogin;
+    BotaoRegistrar botaoRegistrar;
+    JTextField email;
+    JLabel emailLabel;
+    JTextField senha;
+    JLabel senhaLabel;
+    JTextField confirmacaoSenha;
+    JLabel confirmacaoSenhaLabel;
+    JTextField nome;
+    JLabel nomeLabel;
+    JTextField login;
+    JLabel loginLabel;
+    JTextField CPF;
+    JLabel CPFLabel;
 
     private Tela(int altura, int largura) {
         // Criando a tela
@@ -28,59 +45,7 @@ public final class Tela extends JFrame implements ActionListener {
         setLayout(null);
         this.componentes = new ArrayList<>();
 
-
-
-        // Criando botão de login
-        BotaoLogin botaoLogin = BotaoLogin.getInstance(largura, arialTitulo);
-        componentes.add(botaoLogin.getBotaoLogin());
-        botaoLogin.getBotaoLogin().addActionListener(this);
-
-        // Criando campo de email
-        JTextField email = new JTextField();
-        email.setBounds(largura/2 - 100, 250, 200, 30);
-        email.setFont(arial);
-        componentes.add(email);
-
-
-        JLabel emailLabel = new JLabel("E-mail:");
-        emailLabel.setBounds(largura/2 - 100, 210, 200, 50);
-        emailLabel.setFont(arial);
-        componentes.add(emailLabel);
-
-        // Criando um campo de senha
-        JTextField senha = new JTextField();
-        senha.setBounds(largura/2 - 100, 350, 200, 30);
-        senha.setFont(arial);
-        componentes.add(senha);
-
-
-        JLabel senhaLabel = new JLabel("Senha:");
-        senhaLabel.setBounds(largura/2 - 100, 310, 200, 50);
-        senhaLabel.setFont(arial);
-        componentes.add(senhaLabel);
-
-        // Criando opção de se registrar
-        JLabel cadastro = new JLabel("Ainda não se cadastrou?");
-        cadastro.setBounds(largura/2 + 200, 270, 230, 50);
-        cadastro.setFont(arial);
-        componentes.add(cadastro);
-
-
-        JButton cadastroBotao = new JButton("Cadastre-se");
-        cadastroBotao.setBounds(largura/2 + 230, 310, 150, 40);
-        cadastroBotao.setForeground(new Color(239, 243, 239));
-        cadastroBotao.setBackground(new Color(78, 162, 204));
-        cadastroBotao.setFont(arial);
-        componentes.add(cadastroBotao);
-        cadastroBotao.addActionListener(this::cadastrar);
-
-        // Adicionando os componentes da tela
-        for (JComponent componente : componentes){
-            System.out.println(componente);
-            add(componente);
-        }
-
-        setVisible(true);
+        telaLogin();
     }
 
 
@@ -98,40 +63,133 @@ public final class Tela extends JFrame implements ActionListener {
         this.getContentPane().removeAll();
         this.repaint();
     }
+    private void telaLogin(){
+        // Criando botão de login
+        botaoLogin = BotaoLogin.getInstance(largura, arialTitulo);
+        componentes.add(botaoLogin.getBotaoLogin());
+        botaoLogin.getBotaoLogin().addActionListener(this);
 
-    private void cadastrar(ActionEvent actionEvent) {
+        // Criando campo de email
+        email = new JTextField();
+        email.setBounds(largura/2 - 100, 250, 200, 40);
+        componentes.add(email);
+
+
+        emailLabel = new JLabel("E-mail ou Login:");
+        emailLabel.setBounds(email.getX(), email.getY() - 40, 200, 50);
+        componentes.add(emailLabel);
+
+        // Criando um campo de senha
+        senha = new JTextField();
+        senha.setBounds(largura/2 - 100, 350, 200, 40);
+        componentes.add(senha);
+
+
+        senhaLabel = new JLabel("Senha:");
+        senhaLabel.setBounds(senha.getX(), senha.getY() - 40, 200, 30);
+        componentes.add(senhaLabel);
+
+        // Criando opção de se registrar
+        JLabel cadastro = new JLabel("Ainda não se cadastrou?");
+        cadastro.setBounds(largura/2 + 200, 270, 230, 50);
+        componentes.add(cadastro);
+
+
+        botaoCadastro = new JButton("Cadastre-se");
+        botaoCadastro.setBounds(largura/2 + 210, 310, 210, 40);
+        botaoCadastro.setForeground(new Color(239, 243, 239));
+        botaoCadastro.setBackground(new Color(78, 162, 204));
+        botaoCadastro.setFont(new Font("Arial", Font.BOLD, 30));
+        componentes.add(botaoCadastro);
+        botaoCadastro.addActionListener(this::telaCadastro);
+
+        // Adicionando os componentes da tela
+        pintarTela();
+
+        setVisible(true);
+    }
+    private void telaCadastro(ActionEvent actionEvent) {
         this.getContentPane().removeAll();
         this.repaint();
-        componentes.remove(0);
-        componentes.remove(componentes.size()-1);
-        componentes.remove(componentes.size()-1);
+        componentes.clear();
+
+        // Criando campo de nome
+        nome = new JTextField();
+        nome.setBounds(largura/2 - 330, 200, 350, 40);
+        componentes.add(nome);
+
+        nomeLabel = new JLabel("Nome completo:");
+        nomeLabel.setBounds(nome.getX(), nome.getY() - 30, 200, 30);
+        componentes.add(nomeLabel);
+
+        // Campo de CPF
+        CPF = new JTextField();
+        CPF.setBounds(largura/2 + 120, nome.getY(), 250, 40);
+        componentes.add(CPF);
+
+        CPFLabel = new JLabel("CPF (somente números):");
+        CPFLabel.setBounds(CPF.getX(), CPF.getY() - 30, 300, 30);
+        componentes.add(CPFLabel);
+
+
+        // Criando campo de email
+        email.setBounds(largura/2 - 330, 300, 350, 40);
+        componentes.add(email);
+
+        emailLabel.setText("Email:");
+        emailLabel.setBounds(email.getX(), email.getY() - 40, 200, 50);
+        componentes.add(emailLabel);
+
+        // Campo de Login
+        login = new JTextField();
+        login.setBounds(CPF.getX(), email.getY(), 250, 40);
+        componentes.add(login);
+
+        loginLabel = new JLabel("Nome de usuário:");
+        loginLabel.setBounds(login.getX(), login.getY() - 30, 200, 30);
+        componentes.add(loginLabel);
+
+        // Criando um campo de senha
+        senha.setBounds(largura/2 - 330, 400, 250, 40);
+        componentes.add(senha);
+
+        senhaLabel.setBounds(senha.getX(), senha.getY() - 40, 200, 50);
+        componentes.add(senhaLabel);
 
         // Criando um campo de confirmação de senha
-        JLabel confirmacaoSenhaLabel = new JLabel("Confirmação de senha:");
-        confirmacaoSenhaLabel.setBounds(largura/2 - 100, 410, 300, 50);
-        confirmacaoSenhaLabel.setFont(arial);
-        componentes.add(confirmacaoSenhaLabel);
-
-        JTextField confirmacaoSenha = new JTextField();
-        confirmacaoSenha.setBounds(largura/2 - 100, 450, 200, 30);
-        confirmacaoSenha.setFont(arial);
+        confirmacaoSenha = new JTextField();
+        confirmacaoSenha.setBounds(login.getX(), senha.getY() , 250, 40);
         componentes.add(confirmacaoSenha);
 
+        confirmacaoSenhaLabel = new JLabel("Confirmação de senha:");
+        confirmacaoSenhaLabel.setBounds(confirmacaoSenha.getX(), confirmacaoSenha.getY() - 40, 300, 50);
+        componentes.add(confirmacaoSenhaLabel);
+
         // Botão de criar registro
-        BotaoRegistrar botaoRegistrar = BotaoRegistrar.getInstance(largura, arialTitulo);
+        botaoRegistrar = BotaoRegistrar.getInstance(largura, arialTitulo);
         componentes.add(botaoRegistrar.getBotaoRegistrar());
         botaoRegistrar.getBotaoRegistrar().addActionListener(this::criarRegistro);
 
 
-
         // Adicionando os componentes da tela
-        for (JComponent componente : componentes){
-            System.out.println(componente);
-            add(componente);
-        }
+        pintarTela();
     }
 
     private void criarRegistro(ActionEvent actionEvent) {
-        JOptionPane.showMessageDialog(null, "Registro realizado com sucesso!", "Titulo", JOptionPane.INFORMATION_MESSAGE);
+        String[] usuarioEmail = email.getText().split("@");
+        JOptionPane.showMessageDialog(null, "Registro realizado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+        componentes.clear();
+        this.getContentPane().removeAll();
+        this.repaint();
+        telaLogin();
+    }
+
+    private void pintarTela(){
+        for (JComponent componente : componentes){
+            if (!(componente instanceof JButton)){
+                componente.setFont(arial);
+            }
+            add(componente);
+        }
     }
 }
