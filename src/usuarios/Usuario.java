@@ -8,16 +8,14 @@ import java.util.List;
 public class Usuario {
     private final String cpf;
     private String nome;
-    private String login;
-    private String senha;
+    private char[] senha;
     private String email;
     private List<PacoteViagem> pacotesViagem;
     private int tipoPacote;
 
-    public Usuario(String cpf, String nome, String login, String senha, String email, int tipoPacote) {
+    public Usuario(String cpf, String nome, char[] senha, String email, int tipoPacote) {
         this.cpf = cpf;
         this.nome = nome;
-        this.login = login;
         this.senha = senha;
         this.email = email;
         this.tipoPacote = tipoPacote;
@@ -25,9 +23,7 @@ public class Usuario {
 
     public String getNome() { return nome; }
 
-    public String getLogin() { return login; }
-
-    public String getSenha() { return senha; }
+    public char[] getSenha() { return senha; }
 
     public String getEmail() { return email; }
 
@@ -39,11 +35,7 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setSenha(String senha) {
+    public void setSenha(char[] senha) {
         this.senha = senha;
     }
 

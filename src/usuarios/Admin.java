@@ -2,8 +2,8 @@ package usuarios;
 
 public class Admin extends Usuario {
 
-    public Admin(String cpf, String nome, String senha, String email, String login, int tipoPacote) {
-        super(cpf, nome, senha, email, login, tipoPacote);
+    public Admin(String cpf, String nome, char[] senha, String email, int tipoPacote) {
+        super(cpf, nome, senha, email, tipoPacote);
     }
 
     public void adicionarUsuario(Usuario usuario){

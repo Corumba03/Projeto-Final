@@ -142,8 +142,6 @@ public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
                 usuarios.add(new Usuario(
                     resultSet.getString("CPF"),
                     resultSet.getString("NOME"),
-                    // resultSet.getString("LOGIN"),
-                    "loginGenerico",
                     // resultSet.getString("SENHA"),
                     "SenhaGenerica",
                     // resultSet.getString("EMAIL"),
