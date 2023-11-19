@@ -1,5 +1,8 @@
 package interfaceGrafica;
 
+import Exceptions.*;
+import usuarios.Usuario;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +17,6 @@ public final class Tela extends JFrame implements ActionListener {
     Font arial = new Font("Arial", Font.PLAIN, 20);
     private static Tela instancia;
     private final List<JComponent> componentes;
-    private final int altura;
     private final int largura;
 
     JButton botaoCadastro;
@@ -22,21 +24,18 @@ public final class Tela extends JFrame implements ActionListener {
     BotaoRegistrar botaoRegistrar;
     JTextField email;
     JLabel emailLabel;
-    JTextField senha;
+    JPasswordField senha;
     JLabel senhaLabel;
-    JTextField confirmacaoSenha;
+    JPasswordField confirmacaoSenha;
     JLabel confirmacaoSenhaLabel;
     JTextField nome;
     JLabel nomeLabel;
-    JTextField login;
-    JLabel loginLabel;
     JTextField CPF;
     JLabel CPFLabel;
 
     private Tela(int altura, int largura) {
         // Criando a tela
         JFrame jFrame = new JFrame();
-        this.altura = altura;
         this.largura = largura;
         setSize(largura, altura);
         setTitle("Plataforma de Turismo");
@@ -75,12 +74,12 @@ public final class Tela extends JFrame implements ActionListener {
         componentes.add(email);
 
 
-        emailLabel = new JLabel("E-mail ou Login:");
+        emailLabel = new JLabel("E-mail:");
         emailLabel.setBounds(email.getX(), email.getY() - 40, 200, 50);
         componentes.add(emailLabel);
 
         // Criando um campo de senha
-        senha = new JTextField();
+        senha = new JPasswordField();
         senha.setBounds(largura/2 - 100, 350, 200, 40);
         componentes.add(senha);
 
@@ -141,13 +140,6 @@ public final class Tela extends JFrame implements ActionListener {
         componentes.add(emailLabel);
 
         // Campo de Login
-        login = new JTextField();
-        login.setBounds(CPF.getX(), email.getY(), 250, 40);
-        componentes.add(login);
-
-        loginLabel = new JLabel("Nome de usuário:");
-        loginLabel.setBounds(login.getX(), login.getY() - 30, 200, 30);
-        componentes.add(loginLabel);
 
         // Criando um campo de senha
         senha.setBounds(largura/2 - 330, 400, 250, 40);
@@ -157,8 +149,8 @@ public final class Tela extends JFrame implements ActionListener {
         componentes.add(senhaLabel);
 
         // Criando um campo de confirmação de senha
-        confirmacaoSenha = new JTextField();
-        confirmacaoSenha.setBounds(login.getX(), senha.getY() , 250, 40);
+        confirmacaoSenha = new JPasswordField();
+        confirmacaoSenha.setBounds(CPF.getX(), senha.getY() , 250, 40);
         componentes.add(confirmacaoSenha);
 
         confirmacaoSenhaLabel = new JLabel("Confirmação de senha:");
@@ -177,11 +169,43 @@ public final class Tela extends JFrame implements ActionListener {
 
     private void criarRegistro(ActionEvent actionEvent) {
         String[] usuarioEmail = email.getText().split("@");
-        JOptionPane.showMessageDialog(null, "Registro realizado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-        componentes.clear();
-        this.getContentPane().removeAll();
-        this.repaint();
-        telaLogin();
+        char[] senhaCarac = senha.getPassword();
+        char[] confirmacaoSenhaCarac = confirmacaoSenha.getPassword();
+        try {
+            if (nome.getText().isBlank() ||
+                email.getText().isBlank() ||
+                CPF.getText().isBlank() ||
+                senhaCarac.length == 0 ||
+                confirmacaoSenhaCarac.length == 0){
+                throw new CampoVazioException("Preencha todos os campos");
+            }
+            if(!email.getText().contains("@") || !usuarioEmail[1].equals("gmail.com")){
+                throw new EmailInvalidoException("Email inválido");
+            }
+            if(CPF.getText().length() != 11 || !CPF.getText().matches("\\d+")){
+                throw new CPFInvalidoException("CPF inválido");
+            }
+            if(senhaCarac.length < 8){
+                throw new SenhaInvalidaException("A senha deve conter ao menos 8 caracteres");
+            }
+            if(!Arrays.equals(senhaCarac, confirmacaoSenhaCarac)){
+                throw new SenhaIncorretaException("As senhas devem ser iguais");
+            }
+
+            // TODO integrar com o banco de dados
+            Usuario novoUsuario = new Usuario(CPF.getText(), nome.getText(), senhaCarac, email.getText(), 0);
+            JOptionPane.showMessageDialog(null, "Registro realizado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            componentes.clear();
+            this.getContentPane().removeAll();
+            this.repaint();
+            telaLogin();
+        }catch (EmailInvalidoException | CampoVazioException | CPFInvalidoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensagem", JOptionPane.WARNING_MESSAGE);
+        }catch (SenhaInvalidaException | SenhaIncorretaException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Senha inválida", JOptionPane.WARNING_MESSAGE);
+            senha.setText("");
+            confirmacaoSenha.setText("");
+        }
     }
 
     private void pintarTela(){
