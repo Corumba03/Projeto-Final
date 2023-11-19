@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Tela extends JFrame implements ActionListener {
+public final class Tela extends JFrame{
     // Parâmetros básicos
     Font arialTitulo = new Font("Arial", Font.BOLD, 40);
     Font arial = new Font("Arial", Font.PLAIN, 20);
@@ -45,9 +45,8 @@ public final class Tela extends JFrame implements ActionListener {
         this.componentes = new ArrayList<>();
 
         telaLogin();
+        setVisible(true);
     }
-
-
 
     public static Tela getInstance(int altura, int largura){
         if (instancia == null){
@@ -55,18 +54,11 @@ public final class Tela extends JFrame implements ActionListener {
         }
         return instancia;
     }
-    // Botões
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, "funciona!", "Titulo", JOptionPane.WARNING_MESSAGE);
-        this.getContentPane().removeAll();
-        this.repaint();
-    }
     private void telaLogin(){
         // Criando botão de login
         botaoLogin = BotaoLogin.getInstance(largura, arialTitulo);
         componentes.add(botaoLogin.getBotaoLogin());
-        botaoLogin.getBotaoLogin().addActionListener(this);
+        botaoLogin.getBotaoLogin().addActionListener(this::login);
 
         // Criando campo de email
         email = new JTextField();
@@ -104,9 +96,17 @@ public final class Tela extends JFrame implements ActionListener {
 
         // Adicionando os componentes da tela
         pintarTela();
-
-        setVisible(true);
     }
+
+    private void login(ActionEvent actionEvent) {
+        JOptionPane.showMessageDialog(null, "Login realizado", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+        componentes.clear();
+        this.getContentPane().removeAll();
+        this.repaint();
+
+        telaPrincipal();
+    }
+
     private void telaCadastro(ActionEvent actionEvent) {
         this.getContentPane().removeAll();
         this.repaint();
@@ -166,7 +166,6 @@ public final class Tela extends JFrame implements ActionListener {
         // Adicionando os componentes da tela
         pintarTela();
     }
-
     private void criarRegistro(ActionEvent actionEvent) {
         String[] usuarioEmail = email.getText().split("@");
         char[] senhaCarac = senha.getPassword();
@@ -206,6 +205,31 @@ public final class Tela extends JFrame implements ActionListener {
             senha.setText("");
             confirmacaoSenha.setText("");
         }
+    }
+
+    private void telaPrincipal(){
+        JLabel titulo = new JLabel("Tela Principal");
+        titulo.setBounds(largura/2 -  150, 80, 400, 50);
+        titulo.setFont(arialTitulo);
+        add(titulo);
+
+        JLabel bemVindo = new JLabel("Bem-vindo, ");
+        bemVindo.setBounds(20, 10, 200, 30);
+        bemVindo.setFont(arial);
+        add(bemVindo);
+
+        JButton botaoLogout = new JButton("Logout");
+        botaoLogout.setBounds(largura - 150, 10, 100, 30);
+        botaoLogout.setFont(arial);
+        botaoLogout.addActionListener(this::logout);
+        add(botaoLogout);
+    }
+
+    private void logout(ActionEvent actionEvent) {
+        this.getContentPane().removeAll();
+        this.repaint();
+        componentes.clear();
+        telaLogin();
     }
 
     private void pintarTela(){
