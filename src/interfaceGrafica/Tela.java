@@ -179,6 +179,9 @@ public final class Tela extends JFrame implements ActionListener {
                 confirmacaoSenhaCarac.length == 0){
                 throw new CampoVazioException("Preencha todos os campos");
             }
+            if (!nome.getText().contains(" ")){
+                throw new NomeInvalidoException("Nome incompleto");
+            }
             if(!email.getText().contains("@") || !usuarioEmail[1].equals("gmail.com")){
                 throw new EmailInvalidoException("Email inválido");
             }
@@ -199,8 +202,8 @@ public final class Tela extends JFrame implements ActionListener {
             this.getContentPane().removeAll();
             this.repaint();
             telaLogin();
-        }catch (EmailInvalidoException | CampoVazioException | CPFInvalidoException e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensagem", JOptionPane.WARNING_MESSAGE);
+        }catch (EmailInvalidoException | CampoVazioException | CPFInvalidoException | NomeInvalidoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
         }catch (SenhaInvalidaException | SenhaIncorretaException e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Senha inválida", JOptionPane.WARNING_MESSAGE);
             senha.setText("");
