@@ -1,48 +1,32 @@
 package forms;
 
-import pacotesViagem.Destino;
-import usuarios.Usuario;
-
 import java.time.LocalDate;
 
-public class Reserva {
-    private Usuario usuario;
-    private Destino destino;
-    private final LocalDate criacao; // Data de criação da reserva
-    private LocalDate reserva; // Data reservada // TODO colocar nome mais intuitivo
+import controller.usuarios.UsuarioController;
+import model.pacotesViagem.DestinoModel;
 
-    public Reserva(Usuario usuario, Destino destino, LocalDate reserva) {
+public class Reserva {
+    private UsuarioController usuario;
+    private DestinoModel destino;
+    private final LocalDate criacao; // Data de criação da reserva
+    private LocalDate dataReserva; // Data reservada
+
+    public Reserva(UsuarioController usuario, DestinoModel destino, LocalDate dataReserva) {
         this.usuario = usuario;
         this.destino = destino;
         this.criacao = LocalDate.now();
-        this.reserva = reserva;
+        this.dataReserva = dataReserva;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    // Getters e Setters
+    public UsuarioController getUsuario() { return usuario; }
+    public void setUsuario(UsuarioController usuario) { this.usuario = usuario; }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    public DestinoModel getDestino() { return destino; }
+    public void setDestino(DestinoModel destino) { this.destino = destino; }
 
-    public Destino getDestino() {
-        return destino;
-    }
+    public LocalDate getCriacao() { return criacao; }
 
-    public void setDestino(Destino destino) {
-        this.destino = destino;
-    }
-
-    public LocalDate getCriacao() {
-        return criacao;
-    }
-
-    public LocalDate getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(LocalDate reserva) {
-        this.reserva = reserva;
-    }
+    public LocalDate getDataReserva() { return dataReserva; }
+    public void setDataReserva(LocalDate DataReserva) { this.dataReserva = dataReserva; }
 }
