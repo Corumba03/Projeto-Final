@@ -143,7 +143,7 @@ public class UserConnectionImpl extends ConexaoImpl implements UserConnection {
                     resultSet.getString("CPF"),
                     resultSet.getString("NOME"),
                     // resultSet.getString("SENHA"),
-                    "SenhaGenerica",
+                    new char[] {'s','e','n','h','a'},
                     // resultSet.getString("EMAIL"),
                     "EmailGenerico",
                     resultSet.getInt("ID_PACOTE")
