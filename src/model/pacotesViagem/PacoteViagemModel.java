@@ -1,4 +1,4 @@
-package model.pacotesViagem.pacotes;
+package model.pacotesViagem;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import controller.exceptions.CategoriaInexistenteException;
-import model.pacotesViagem.AtividadeModel;
-import model.pacotesViagem.AvaliacaoModel;
-import model.pacotesViagem.ViagemModel;
 
 public abstract class  PacoteViagemModel {
     private String categoria; // A categoria (Aventura, Relaxamento, Cultura, etc) do pacote
@@ -16,16 +13,19 @@ public abstract class  PacoteViagemModel {
     private ViagemModel viagem; // Destino da viagem
     private Set<AtividadeModel> atividades; // Lista de atividades inclusas no pacote
     private Set<LocalDate> datasDisponiveis; // Lista de datas disponíveis para o pacote
-    private List<AvaliacaoModel> avaliacoes; // Lista de avaliações/comentários de turistas sobre o pacote
+    private List<String> avaliacoes; // Lista de avaliações/comentários de turistas sobre o pacote
     private double precoBase;
     private double descontoBase; // Desconto percentual base (é convertido para decimal)
 
     public PacoteViagemModel(String categoria, double descontoBase) {
         try {
-            if (!CategoriaPacoteModel.getCategoriasPacote().contains(categoria)){
-                throw new CategoriaInexistenteException("Categoria não consta no sistema");
+            for (CategoriaDestinoModel c : CategoriaDestinoModel.values()){
+                if (c.name().equals(categoria)){
+                    this.categoria = categoria;
+                }else{
+                    throw new CategoriaInexistenteException("Categoria não consta no sistema");
+                }
             }
-            this.categoria = categoria;
         }
         catch (CategoriaInexistenteException e){
             System.err.println("Erro ao criar pacote de viagem: " + e.getMessage());
@@ -65,14 +65,6 @@ public abstract class  PacoteViagemModel {
         return precoBase;
     }
 
-    public List<AvaliacaoModel> getAvaliacoes() {
-        return avaliacoes;
-    }
-
-    public void setAvaliacoes(List<AvaliacaoModel> avaliacoes) {
-        this.avaliacoes = avaliacoes;
-    }
-
     public void setPrecoBase(double precoBase) {
         this.precoBase = precoBase;
     }
@@ -103,17 +95,14 @@ public abstract class  PacoteViagemModel {
 
     // Outros métodos
 
-    public void atualizarPreco(){
-        double preco_atividades = 0.0;
-        for (AtividadeModel atividade : this.atividades){
-            preco_atividades += atividade.getPreco();
-        }
-        this.precoBase = (this.viagem.getPreco() + preco_atividades) * (1 - this.descontoBase); // Preço da passagem + preço das atividades - descontos
-    }
+    // public void atualizarPreco(){
+    //     double preco_atividades = 0.0;
+    //     for (AtividadeModel atividade : this.atividades){
+    //         preco_atividades += atividade.getPreco();
+    //     }
+    //     this.precoBase = (this.viagem.getPreco() + preco_atividades) * (1 - this.descontoBase); // Preço da passagem + preço das atividades - descontos
+    // }
 
-    public void addAvaliacao(AvaliacaoModel avaliacao){
-        this.avaliacoes.add(avaliacao);
-    }
     public void addAtividade(AtividadeModel atividade){
         this.atividades.add(atividade);
     }

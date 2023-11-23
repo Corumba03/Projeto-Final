@@ -1,4 +1,4 @@
-package model.pacotesViagem.pacotes;
+package model.pacotesViagem;
 
 public enum PlanoPacoteModel {
     Premium, Basico, Lite

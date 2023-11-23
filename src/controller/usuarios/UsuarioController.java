@@ -2,7 +2,7 @@ package controller.usuarios;
 
 import java.util.List;
 
-import model.pacotesViagem.pacotes.PacoteViagemModel;
+import model.pacotesViagem.PacoteViagemModel;
 
 
 public class UsuarioController {

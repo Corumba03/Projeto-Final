@@ -11,12 +11,12 @@ public class AtividadeModel {
     private String nome; // Nome da atividade
     private String resumo; // Descrição breve da atividade
     private String desc; // Descrição detalhada da atividade
+    private Duration duracao; // Duração prevista da atividade
     private Dificuldade dificuldade; // Dificuldade da atividade
-    private Duration duracao; // Duração prevista da atividade TODO implementar como um intervalo
     private String disponibilidade; // Informações sobre quando a atividade está disponível (por exemplo, duranto o ano, apenas no verão). TODO implementar com um tipo melhor
     private String cuidados; //Restrições e cuidados da atividade
     private List<String> equipamentos; // Lista de equipamentos necessários
-    private double preco; // Preço da atividade
+    // private double preco; // Preço da atividade
 
     public AtividadeModel(String nome, String resumo, String desc, Dificuldade dificuldade, Duration duracao, String disponibilidade, String cuidados, double preco) {
         this.nome = nome;
@@ -26,7 +26,6 @@ public class AtividadeModel {
         this.duracao = duracao;
         this.disponibilidade = disponibilidade;
         this.cuidados = cuidados;
-        this.preco = preco;
         this.equipamentos = new ArrayList<>();
     }
 
@@ -93,15 +92,7 @@ public class AtividadeModel {
     public void setEquipamentos(List<String> equipamentos) {
         this.equipamentos = equipamentos;
     }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
+    
     // Outros métodos
     public void addEquipamento(String equipamento){
         this.equipamentos.add(equipamento);
