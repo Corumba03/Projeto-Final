@@ -28,5 +28,5 @@ public class ReservaModel {
     public LocalDate getCriacao() { return criacao; }
 
     public LocalDate getDataReserva() { return dataReserva; }
-    public void setDataReserva(LocalDate DataReserva) { this.dataReserva = dataReserva; }
+    public void setDataReserva(LocalDate DataReserva) { this.dataReserva = DataReserva; }
 }
