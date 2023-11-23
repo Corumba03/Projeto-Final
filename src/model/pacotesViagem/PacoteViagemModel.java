@@ -61,6 +61,10 @@ public abstract class  PacoteViagemModel {
         this.datasDisponiveis = datasDisponiveis;
     }
 
+    public List<String> getAvaliacoes(){
+        return avaliacoes;
+    }
+
     public double getPrecoBase() {
         return precoBase;
     }
@@ -92,6 +96,7 @@ public abstract class  PacoteViagemModel {
     public void setDescontoBase(double descontoBase) {
         this.descontoBase = descontoBase;
     }
+
 
     // Outros métodos
 
