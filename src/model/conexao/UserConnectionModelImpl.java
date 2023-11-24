@@ -126,8 +126,6 @@ public class UserConnectionModelImpl extends ConexaoModelImpl implements UserCon
         }
     }
 
-    public static void editarUsuario(int id, String campo, String dado) {
-    }
 
     public static List<UsuarioController> listarUsuarios() {
         List<UsuarioController> usuarios = new ArrayList<>();
