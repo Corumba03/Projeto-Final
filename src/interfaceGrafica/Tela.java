@@ -1,24 +1,27 @@
 package interfaceGrafica;
 
 import Exceptions.*;
+import pacotesViagem.Destino;
+import pacotesViagem.Viagem;
+import pacotesViagem.pacotes.Categorias;
+import pacotesViagem.pacotes.PacoteBasico;
+import pacotesViagem.pacotes.PacoteViagem;
 import usuarios.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public final class Tela extends JFrame{
     // Parâmetros básicos
-    Font arialTitulo = new Font("Arial", Font.BOLD, 40);
-    Font arial = new Font("Arial", Font.PLAIN, 20);
     private static Tela instancia;
+    public final static int largura = 1000;
+    public final static int altura = 800;
     private final List<JComponent> componentes;
-    private final int largura;
-
     JButton botaoCadastro;
     BotaoLogin botaoLogin;
     BotaoRegistrar botaoRegistrar;
@@ -33,10 +36,9 @@ public final class Tela extends JFrame{
     JTextField CPF;
     JLabel CPFLabel;
 
-    private Tela(int altura, int largura) {
+    private Tela() {
         // Criando a tela
         JFrame jFrame = new JFrame();
-        this.largura = largura;
         setSize(largura, altura);
         setTitle("Plataforma de Turismo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,13 +52,13 @@ public final class Tela extends JFrame{
 
     public static Tela getInstance(int altura, int largura){
         if (instancia == null){
-            instancia = new Tela(altura, largura);
+            instancia = new Tela();
         }
         return instancia;
     }
     private void telaLogin(){
         // Criando botão de login
-        botaoLogin = BotaoLogin.getInstance(largura, arialTitulo);
+        botaoLogin = BotaoLogin.getInstance(Fontes.arialTitulo);
         componentes.add(botaoLogin.getBotaoLogin());
         botaoLogin.getBotaoLogin().addActionListener(this::login);
 
@@ -99,12 +101,13 @@ public final class Tela extends JFrame{
     }
 
     private void login(ActionEvent actionEvent) {
-        JOptionPane.showMessageDialog(null, "Login realizado", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-        componentes.clear();
-        this.getContentPane().removeAll();
-        this.repaint();
+            //JOptionPane.showMessageDialog(null, "Login realizado", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            componentes.clear();
+            this.getContentPane().removeAll();
+            this.repaint();
 
-        telaPrincipal();
+            telaPrincipal();
+
     }
 
     private void telaCadastro(ActionEvent actionEvent) {
@@ -158,7 +161,7 @@ public final class Tela extends JFrame{
         componentes.add(confirmacaoSenhaLabel);
 
         // Botão de criar registro
-        botaoRegistrar = BotaoRegistrar.getInstance(largura, arialTitulo);
+        botaoRegistrar = BotaoRegistrar.getInstance(largura, Fontes.arialTitulo);
         componentes.add(botaoRegistrar.getBotaoRegistrar());
         botaoRegistrar.getBotaoRegistrar().addActionListener(this::criarRegistro);
 
@@ -210,19 +213,41 @@ public final class Tela extends JFrame{
     private void telaPrincipal(){
         JLabel titulo = new JLabel("Tela Principal");
         titulo.setBounds(largura/2 -  150, 80, 400, 50);
-        titulo.setFont(arialTitulo);
+        titulo.setFont(Fontes.arialTitulo);
         add(titulo);
 
         JLabel bemVindo = new JLabel("Bem-vindo, ");
         bemVindo.setBounds(20, 10, 200, 30);
-        bemVindo.setFont(arial);
+        bemVindo.setFont(Fontes.arial);
         add(bemVindo);
 
         JButton botaoLogout = new JButton("Logout");
         botaoLogout.setBounds(largura - 150, 10, 100, 30);
-        botaoLogout.setFont(arial);
+        botaoLogout.setFont(Fontes.arial);
         botaoLogout.addActionListener(this::logout);
         add(botaoLogout);
+
+        PacoteBasico pacotePlaceholder = new PacoteBasico(Categorias.NENHUMA, 0);
+        Destino destinoPlaceholder = new Destino("", "", "", Duration.ofDays(0), 0.0, "");
+        Viagem viagemPlaceholder = new Viagem(destinoPlaceholder, "", 0.0);
+        pacotePlaceholder.setViagem(viagemPlaceholder);
+
+        int xInit = 100;
+        int yInit = 200;
+
+        for (int i = 1; i < 5; i++){
+            for (int j = 1; j < 4; j++){
+                BotaoPacote novoBotao = new BotaoPacote(j*xInit + (j-1)*180, i*yInit, pacotePlaceholder);
+                add(novoBotao.getBotaoPacote());
+            }
+
+        }
+        //BotaoPacote novoBotao = new BotaoPacote(100, 200, pacotePlaceholder);
+        //add(novoBotao.getBotaoPacote());
+    }
+
+    public static void telaPacote(PacoteViagem pacote){
+
     }
 
     private void logout(ActionEvent actionEvent) {
@@ -235,7 +260,7 @@ public final class Tela extends JFrame{
     private void pintarTela(){
         for (JComponent componente : componentes){
             if (!(componente instanceof JButton)){
-                componente.setFont(arial);
+                componente.setFont(Fontes.arial);
             }
             add(componente);
         }
