@@ -3,7 +3,7 @@ package pacotesViagem.pacotes;
 public class PacoteBasico extends PacoteViagem{
     private static double basicoLimitePreco; // Limite inferior de preço
     private static int basicoLimiteAtividades; // Limite superior de atividades por dia
-    public PacoteBasico(String categoria, double precoBase) {
+    public PacoteBasico(Categorias categoria, double precoBase) {
         super(categoria, precoBase);
         this.plano = PlanoPacote.Basico;
     }

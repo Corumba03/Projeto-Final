@@ -4,7 +4,7 @@ public class PacotePremium extends PacoteViagem{
     private static double premiumLimitePreco; // Limite inferior de preço
     private static int premiumLimiteAtividades; // Limite superior de atividades por dia
 
-    public PacotePremium(String categoria, Double precoBase) {
+    public PacotePremium(Categorias categoria, Double precoBase) {
         super(categoria, precoBase);
         this.plano = PlanoPacote.Premium;
     }

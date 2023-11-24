@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class  PacoteViagem {
-    private String categoria; // A categoria (Aventura, Relaxamento, Cultura, etc) do pacote
+    private Categorias categoria; // A categoria (Aventura, Relaxamento, Cultura, etc) do pacote
     protected PlanoPacote plano; // Premium, Basico, Lite
     private Viagem viagem; // Destino da viagem
     private Set<Atividade> atividades; // Lista de atividades inclusas no pacote
@@ -20,16 +20,7 @@ public abstract class  PacoteViagem {
     private double precoBase;
     private double descontoBase; // Desconto percentual base (é convertido para decimal)
 
-    public PacoteViagem(String categoria, double descontoBase) {
-        try {
-            if (!CategoriaPacote.getCategoriasPacote().contains(categoria)){
-                throw new CategoriaInexistenteException("Categoria não consta no sistema");
-            }
-            this.categoria = categoria;
-        }
-        catch (CategoriaInexistenteException e){
-            System.err.println("Erro ao criar pacote de viagem: " + e.getMessage());
-        }
+    public PacoteViagem(Categorias categoria, double descontoBase) {
         this.precoBase = 0.0; // Preço será definido pelo preço do destino e das atividades
         this.atividades = new HashSet<>();
         this.datasDisponiveis = new HashSet<>();
@@ -37,11 +28,11 @@ public abstract class  PacoteViagem {
         this.descontoBase = descontoBase / 100;
     }
 
-    public String getCategoria() {
+    public Categorias getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categorias categoria) {
         this.categoria = categoria;
     }
 
