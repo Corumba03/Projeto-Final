@@ -44,8 +44,7 @@ public class UserConnectionModelImpl extends ConexaoModel implements UserConnect
     }
 
     public static void criarUsuario(UsuarioController usuario) {
-        String qry = String.format("INSERT INTO DM_USUARIOS (CPF, NOME, LAST_UPDATE, ID_PACOTE) VALUES ('%s', '%s', CURRENT_TIMESTAMP, %s)", usuario.getCpf(), usuario.getNome(), usuario.getTipoPacote());
-        // System.out.println(qry);
+        String qry = String.format("INSERT INTO DM_USUARIOS (CPF, NOME, EMAIL, SENHA, LAST_UPDATE) VALUES ('%s', '%s', '%s', '%s' CURRENT_TIMESTAMP)", usuario.getCpf(), usuario.getNome(), usuario.getEmail(), usuario.getSenha());
         try{
             PreparedStatement stt = connection.prepareStatement(qry);
             int numOperacao = stt.executeUpdate();
@@ -54,5 +53,28 @@ public class UserConnectionModelImpl extends ConexaoModel implements UserConnect
             System.out.println("--> UserConnection creation:");
             System.out.println(String.format("%d: %s", e.getErrorCode(), e.getMessage()));
         }
+    }
+
+    public static UsuarioController verificaUsuario(String email, String senha){
+        UsuarioController user = null;
+        String qry = String.format("SELECT * FROM DM_USUARIOS WHERE email = %s AND senha = %s", email, senha);
+        try{
+            PreparedStatement stt = connection.prepareStatement(qry);
+            ResultSet resultado = stt.executeQuery();
+
+            while(resultado.next()){
+                user = new UsuarioController(
+                    resultado.getString("CPF"),
+                    resultado.getString("NOME"),
+                    resultado.getString("SENHA").toCharArray(),
+                    resultado.getString("EMAIL")
+                );
+            }
+        } catch (SQLException e){
+            System.out.println("--> UserConnection UserConnection verificaUsuario:");
+            System.out.println(String.format("%d: %s", e.getErrorCode(), e.getMessage()));
+        }
+
+        return user;
     }
 }

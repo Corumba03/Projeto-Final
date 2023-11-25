@@ -3,7 +3,7 @@ package controller.usuarios;
 public class AdminController extends UsuarioController {
 
     public AdminController(String cpf, String nome, char[] senha, String email, int tipoPacote) {
-        super(cpf, nome, senha, email, tipoPacote);
+        super(cpf, nome, senha, email);
     }
 
     public void adicionarUsuario(UsuarioController usuario){
