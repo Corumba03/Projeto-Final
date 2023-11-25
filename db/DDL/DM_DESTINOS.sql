@@ -1,0 +1,5 @@
+CREATE TABLE DM_DESTINOS (
+    id   INTEGER      PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR (50),
+    info TEXT
+);

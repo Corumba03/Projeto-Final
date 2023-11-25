@@ -1,24 +1,17 @@
 package model.pacotesViagem;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-
 public class AtividadeModel {
-    public enum Dificuldade{
-        Facil, Moderado, Dificil, Perigoso
-    }
+    
     private String nome; // Nome da atividade
     private String resumo; // Descrição breve da atividade
     private String desc; // Descrição detalhada da atividade
-    private Duration duracao; // Duração prevista da atividade
-    private Dificuldade dificuldade; // Dificuldade da atividade
-    private String disponibilidade; // Informações sobre quando a atividade está disponível (por exemplo, duranto o ano, apenas no verão). TODO implementar com um tipo melhor
+    private String duracao; // Duração prevista da atividade
+    private DificuldadeModel dificuldade; // Dificuldade da atividade
+    private String disponibilidade; 
     private String cuidados; //Restrições e cuidados da atividade
-    private List<String> equipamentos; // Lista de equipamentos necessários
-    // private double preco; // Preço da atividade
+    private String equipamentos; // Lista de equipamentos necessários
 
-    public AtividadeModel(String nome, String resumo, String desc, Dificuldade dificuldade, Duration duracao, String disponibilidade, String cuidados, double preco) {
+    public AtividadeModel(String nome, String resumo, String desc, String duracao, DificuldadeModel dificuldade, String disponibilidade, String cuidados, String equipamentos) {
         this.nome = nome;
         this.resumo = resumo;
         this.desc = desc;
@@ -26,78 +19,39 @@ public class AtividadeModel {
         this.duracao = duracao;
         this.disponibilidade = disponibilidade;
         this.cuidados = cuidados;
-        this.equipamentos = new ArrayList<>();
+        this.equipamentos = equipamentos;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getResumo() {
         return resumo;
-    }
-
-    public void setResumo(String resumo) {
-        this.resumo = resumo;
     }
 
     public String getDesc() {
         return desc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public Dificuldade getDificuldade() {
-        return dificuldade;
-    }
-
-    public void setDificuldade(Dificuldade dificuldade) {
-        this.dificuldade = dificuldade;
-    }
-
-    public Duration getDuracao() {
+    public String getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(Duration duracao) {
-        this.duracao = duracao;
+    public DificuldadeModel getDificuldade() {
+        return dificuldade;
     }
 
     public String getDisponibilidade() {
         return disponibilidade;
     }
 
-    public void setDisponibilidade(String disponibilidade) {
-        this.disponibilidade = disponibilidade;
-    }
-
     public String getCuidados() {
         return cuidados;
     }
 
-    public void setCuidados(String cuidados) {
-        this.cuidados = cuidados;
-    }
-
-    public List<String> getEquipamentos() {
+    public String getEquipamentos() {
         return equipamentos;
     }
 
-    public void setEquipamentos(List<String> equipamentos) {
-        this.equipamentos = equipamentos;
-    }
-    
-    // Outros métodos
-    public void addEquipamento(String equipamento){
-        this.equipamentos.add(equipamento);
-    }
-    public void removeEquipamento(String equipamento){
-        this.equipamentos.remove(equipamento);
-    }
 }
