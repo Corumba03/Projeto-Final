@@ -1,20 +1,20 @@
 package model.pacotesViagem;
 
-import java.time.Duration;
-
 public class DestinoModel {
     private String nome; // Nome do local de destino da viagem
     private String info; // Informações gerais sobre o destino (clima, idioma, cultura, etc)
+    private AtividadeModel atividade;
 
-    public DestinoModel(String nome, String resumo, String desc, Duration duracao, double preco, String info) {
+    public DestinoModel(String nome, String info, AtividadeModel atividade) {
         this.nome = nome;
         this.info = info;
+        this.atividade = atividade;
     }
 
     // Getters e setters
     public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
 
     public String getInfo() { return info; }
-    public void setInfo(String info) { this.info = info; }
+
+    public AtividadeModel getAtividade() { return atividade; }
 }
