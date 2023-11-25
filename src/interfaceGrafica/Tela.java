@@ -1,6 +1,7 @@
 package interfaceGrafica;
 
 import Exceptions.*;
+import com.sun.tools.javac.Main;
 import pacotesViagem.Destino;
 import pacotesViagem.Viagem;
 import pacotesViagem.pacotes.Categorias;
@@ -11,6 +12,7 @@ import usuarios.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +24,7 @@ public final class Tela extends JFrame{
     public final static int largura = 1000;
     public final static int altura = 800;
     private final List<JComponent> componentes;
+    JFrame tela;
     JButton botaoCadastro;
     BotaoLogin botaoLogin;
     BotaoRegistrar botaoRegistrar;
@@ -38,7 +41,7 @@ public final class Tela extends JFrame{
 
     private Tela() {
         // Criando a tela
-        JFrame jFrame = new JFrame();
+        tela = new JFrame();
         setSize(largura, altura);
         setTitle("Plataforma de Turismo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,13 +104,14 @@ public final class Tela extends JFrame{
     }
 
     private void login(ActionEvent actionEvent) {
-            //JOptionPane.showMessageDialog(null, "Login realizado", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Login realizado", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             componentes.clear();
             this.getContentPane().removeAll();
             this.repaint();
 
-            telaPrincipal();
-
+            setVisible(false);
+            dispose();
+            Main.
     }
 
     private void telaCadastro(ActionEvent actionEvent) {
@@ -208,46 +212,6 @@ public final class Tela extends JFrame{
             senha.setText("");
             confirmacaoSenha.setText("");
         }
-    }
-
-    private void telaPrincipal(){
-        JLabel titulo = new JLabel("Tela Principal");
-        titulo.setBounds(largura/2 -  150, 80, 400, 50);
-        titulo.setFont(Fontes.arialTitulo);
-        add(titulo);
-
-        JLabel bemVindo = new JLabel("Bem-vindo, ");
-        bemVindo.setBounds(20, 10, 200, 30);
-        bemVindo.setFont(Fontes.arial);
-        add(bemVindo);
-
-        JButton botaoLogout = new JButton("Logout");
-        botaoLogout.setBounds(largura - 150, 10, 100, 30);
-        botaoLogout.setFont(Fontes.arial);
-        botaoLogout.addActionListener(this::logout);
-        add(botaoLogout);
-
-        PacoteBasico pacotePlaceholder = new PacoteBasico(Categorias.NENHUMA, 0);
-        Destino destinoPlaceholder = new Destino("", "", "", Duration.ofDays(0), 0.0, "");
-        Viagem viagemPlaceholder = new Viagem(destinoPlaceholder, "", 0.0);
-        pacotePlaceholder.setViagem(viagemPlaceholder);
-
-        int xInit = 100;
-        int yInit = 200;
-
-        for (int i = 1; i < 5; i++){
-            for (int j = 1; j < 4; j++){
-                BotaoPacote novoBotao = new BotaoPacote(j*xInit + (j-1)*180, i*yInit, pacotePlaceholder);
-                add(novoBotao.getBotaoPacote());
-            }
-
-        }
-        //BotaoPacote novoBotao = new BotaoPacote(100, 200, pacotePlaceholder);
-        //add(novoBotao.getBotaoPacote());
-    }
-
-    public static void telaPacote(PacoteViagem pacote){
-
     }
 
     private void logout(ActionEvent actionEvent) {
