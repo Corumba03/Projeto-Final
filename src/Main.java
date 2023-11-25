@@ -1,19 +1,18 @@
 import java.util.List;
 
-import controller.usuarios.UsuarioController;
-import model.conexao.ConexaoModelImpl;
-import model.conexao.UserConnectionModelImpl;
-
+import controller.PacoteViagemController;
+import model.conexao.ConexaoModel;
+import model.conexao.PacoteViagemConnectionModel;
 
 public class Main {
     public static void main(String[] args) {
         // Tela tela = Tela.getInstance(800, 1000);
-        
-        ConexaoModelImpl conn = new ConexaoModelImpl();
-        UserConnectionModelImpl.setConexao(conn.getConexao());
-        List<UsuarioController> us = UserConnectionModelImpl.listarUsuarios();
-        for (UsuarioController u : us){
-            System.err.println(u.getCpf() + ": " + u.getNome());
+
+        ConexaoModel.iniciarConexao();
+        List<PacoteViagemController> pacotes = PacoteViagemConnectionModel.buscarPacotePorPrecoMax(500);
+        for (PacoteViagemController p : pacotes){
+            System.out.println("Destino: " + p.getDestino().getNome());
         }
+        ConexaoModel.encerrarConexao();
     }
 }

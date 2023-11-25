@@ -2,7 +2,7 @@ package controller.usuarios;
 
 import java.util.List;
 
-import model.pacotesViagem.PacoteViagemModel;
+import controller.PacoteViagemController;
 
 
 public class UsuarioController {
@@ -10,7 +10,7 @@ public class UsuarioController {
     private String nome;
     private char[] senha;
     private String email;
-    private List<PacoteViagemModel> pacotesViagem;
+    private List<PacoteViagemController> pacotesViagem;
     private int tipoPacote;
 
     public UsuarioController(String cpf, String nome, char[] senha, String email, int tipoPacote) {
@@ -21,45 +21,27 @@ public class UsuarioController {
         this.tipoPacote = tipoPacote;
     }
 
-    public String getNome() { return nome; }
-
-    public char[] getSenha() { return senha; }
-
-    public String getEmail() { return email; }
-
-    public String getCpf() { return cpf; }
-
-    public int getTipoPacote() { return tipoPacote; }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setSenha(char[] senha) {
-        this.senha = senha;
+    public String getNome() {
+        return nome;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public char[] getSenha() {
+        return senha;
     }
 
-    public void setTipoPacote(int tipoPacote) {
-        this.tipoPacote = tipoPacote;
+    public String getEmail() {
+        return email;
     }
 
-    // TODO adicionar exception: pacotesViagemInexistenteException
-    public void adicionarPacote(PacoteViagemModel pacote){
-        pacotesViagem.add(pacote);
+    public List<PacoteViagemController> getPacotesViagem() {
+        return pacotesViagem;
     }
 
-    // TODO adicionar exception: OperacaoNaoRealizadaException
-    // Excessao para operacoes no banco de dados
-    public void deletarConta(){
-        // TODO chamada de userConnection para deletar conta do banco de dados
-    }
-
-    public void editarDado(){
-        // TODO switch case para verificar qual dado o usuario deseja alterar
-        // Fazer chamada de userConnection para editar usuario no db
+    public int getTipoPacote() {
+        return tipoPacote;
     }
 }
