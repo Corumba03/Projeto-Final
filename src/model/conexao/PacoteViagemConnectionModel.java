@@ -18,14 +18,14 @@ public class PacoteViagemConnectionModel extends ConexaoModel{
     public static List<PacoteViagemController> buscarPacotePorDestino(String destino){
 
         List<PacoteViagemController> pacotes = new ArrayList<>();
-        DestinoModel destinoModel = DestinosConnectionModel.buscarDestino(destino);
-        if (destinoModel == null){
-            System.out.println("O destino informado não existe.");
-            return null;
-        }
         
         // Recuperando pacoteViagem
         try {
+            DestinoModel destinoModel = DestinosConnectionModel.buscarDestino(destino);
+            if (destinoModel == null){
+                System.out.println("O destino informado não existe.");
+                return null;
+            }
             String qry = String.format("SELECT * FROM DM_PACOTE_VIAGEM WHERE nome_destino = '%s'", destinoModel.getNome());
             PreparedStatement stt = connection.prepareStatement(qry);
 
@@ -59,11 +59,11 @@ public class PacoteViagemConnectionModel extends ConexaoModel{
         try {
             String qry = String.format("SELECT * FROM DM_PACOTE_VIAGEM WHERE categoria = '%s'", categoria);
             PreparedStatement stt = connection.prepareStatement(qry);
+            ResultSet resultado = stt.executeQuery();
 
             // Processando Resultados
-            ResultSet resultado = stt.executeQuery();
-            DestinoModel destinoModel = DestinosConnectionModel.buscarDestino(resultado.getString("nome_destino"));
             while(resultado.next()){
+                DestinoModel destinoModel = DestinosConnectionModel.buscarDestino(resultado.getString("nome_destino"));
                 PacoteViagemController pct = new PacoteViagemController(
                         resultado.getString("categoria"),
                         PlanoPacoteModel.valueOf(resultado.getString("plano")),
@@ -83,7 +83,6 @@ public class PacoteViagemConnectionModel extends ConexaoModel{
 
         return pacotes;
     }
-
 
     public static List<PacoteViagemController> buscarPacotePorPrecoMax(double preco){
         List<PacoteViagemController> pacotes = new ArrayList<>();
@@ -122,5 +121,4 @@ public class PacoteViagemConnectionModel extends ConexaoModel{
     public static void adicionarPacote(int id){}
     public static void editarPacote(int id){}
     public static void removerPacote(int id){}
-
 }
