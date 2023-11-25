@@ -118,7 +118,6 @@ public class PacoteViagemConnectionModel extends ConexaoModel{
         return pacotes;
     }
 
-
     // TODO Funcoes pra adm
     public static void adicionarPacote(int id){}
     public static void editarPacote(int id){}
