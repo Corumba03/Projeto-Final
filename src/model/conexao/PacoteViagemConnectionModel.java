@@ -117,6 +117,20 @@ public class PacoteViagemConnectionModel extends ConexaoModel{
         return pacotes;
     }
 
+    public static int obterIdPacote(PacoteViagemController pct){
+        int id = 0;
+        String qry = String.format("SELECT id FROM DM_PACOTE_VIAGEM WHERE nome_destino = '%s' AND plano = '%s'", pct.getDestino().getNome(), pct.getPlano());
+        try{
+            PreparedStatement stt = connection.prepareStatement(qry);
+            ResultSet res = stt.executeQuery();
+            id = res.getInt("id");
+        } catch (SQLException e) {
+            System.out.println("---> PacoteViagemConnection obterIdpacote");
+            System.out.println(e.getErrorCode() + ": " + e.getMessage());
+        }
+        return id;
+    }
+
     // TODO Funcoes pra adm
     public static void adicionarPacote(int id){}
     public static void editarPacote(int id){}

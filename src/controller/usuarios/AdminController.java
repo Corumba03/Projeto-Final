@@ -6,4 +6,8 @@ public class AdminController extends UsuarioController {
         super(cpf, nome, senha, email);
     }
 
+    public static void adicionarPacote(){}
+    public static void editarPacote(){}
+    public static void removerPacote(){}
+
 }

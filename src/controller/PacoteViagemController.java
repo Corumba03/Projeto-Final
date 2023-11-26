@@ -9,11 +9,9 @@ public class PacoteViagemController {
     PlanoPacoteModel plano; // Premium, Basico, Lite
     private DestinoModel destino; // Destino da viagem
     private AtividadeModel atividade; // Lista de atividades inclusas no pacote
-    // private Set<LocalDate> datasDisponiveis; // Lista de datas disponíveis para o pacote
     private int avaliacao; // avaliacao media de turistas sobre a viagem (de 0 a 10)
     private double precoBase;
     private double descontoBase; // Desconto percentual base (é convertido para decimal)
-
 
     public PacoteViagemController(String categoria, PlanoPacoteModel plano, DestinoModel destino,
             AtividadeModel atividade, int avaliacao, double precoBase, double descontoBase) {

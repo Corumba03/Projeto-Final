@@ -195,8 +195,9 @@ public final class Tela extends JFrame implements ActionListener {
                 throw new SenhaIncorretaException("As senhas devem ser iguais");
             }
 
-            // TODO integrar com o banco de dados
             UsuarioController novoUsuario = new UsuarioController(CPF.getText(), nome.getText(), senhaCarac, email.getText());
+            // Criação de usuarios
+            novoUsuario.cadastrarUsuario();
             JOptionPane.showMessageDialog(null, "Registro realizado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             componentes.clear();
             this.getContentPane().removeAll();
