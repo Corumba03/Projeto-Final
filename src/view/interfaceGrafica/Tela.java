@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import main.Main;
 
 public final class Tela extends JFrame{
     // Parâmetros básicos
@@ -94,17 +95,18 @@ public final class Tela extends JFrame{
 
         // Adicionando os componentes da tela
         pintarTela();
-
         setVisible(true);
     }
 
     private void login(ActionEvent actionEvent) {
         try {
-            if (UsuarioController.verificaUsuario(email.getText(), Arrays.toString(senha.getPassword())) == null){
+            UsuarioController usuario = UsuarioController.verificaUsuario(email.getText(), Arrays.toString(senha.getPassword()));
+            if (usuario == null){
                 throw new CredenciaisInvalidasException("E-mail ou senha incorretos");
             }
             JOptionPane.showMessageDialog(null, "Login realizado", "", JOptionPane.PLAIN_MESSAGE);
             tela.setVisible(false);
+            Main.setUsuarioController(usuario);
         } catch (CredenciaisInvalidasException e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "", JOptionPane.PLAIN_MESSAGE);
             senha.setText("");

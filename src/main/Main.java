@@ -1,3 +1,5 @@
+package main;
+
 import controller.PacoteViagemController;
 import controller.usuarios.AdminController;
 import controller.usuarios.UsuarioController;
@@ -39,6 +41,7 @@ public final class Main {
                     menuPacotes(scanner);
                     break;
                 case 5:
+                    // Abre a interface gráfica novamente
                     tela.setVisible(true);
                     scanner.close();
                     return;
@@ -84,7 +87,6 @@ public final class Main {
                 System.out.println("Opção inválida. Por favor, escolha novamente.");
         }
     }
-
     private static void menuCategorias(Scanner scanner){
         System.out.println("---- Categorias ----\n");
         System.out.println("1. Aventura");
@@ -140,7 +142,6 @@ public final class Main {
         System.out.println("1. Voltar");
         listarPacotes(scanner, listaPacotes);
     }
-
     private static void listarPacotes(Scanner scanner, List<PacoteViagemController> listaPacotes){
         int i = 2;
         for (PacoteViagemController pacoteViagem : listaPacotes){
@@ -161,7 +162,8 @@ public final class Main {
             System.out.println("Opção inválida. Por favor, escolha novamente.");
         }
     }
-
-
+    public static void setUsuarioController(UsuarioController newController) {
+        usuarioController = newController;
+    }
 
 }
