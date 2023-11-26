@@ -6,19 +6,18 @@ import controller.usuarios.UsuarioController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Tela extends JFrame implements ActionListener {
+public final class Tela extends JFrame{
     // Parâmetros básicos
     Font arialTitulo = new Font("Arial", Font.BOLD, 40);
     Font arial = new Font("Arial", Font.PLAIN, 20);
     private static Tela instancia;
     private final List<JComponent> componentes;
     private final int largura;
-
+    private final JFrame tela;
     JButton botaoCadastro;
     BotaoLogin botaoLogin;
     BotaoRegistrar botaoRegistrar;
@@ -35,7 +34,7 @@ public final class Tela extends JFrame implements ActionListener {
 
     private Tela(int altura, int largura) {
         // Criando a tela
-        JFrame jFrame = new JFrame();
+        tela = new JFrame();
         this.largura = largura;
         setSize(largura, altura);
         setTitle("Plataforma de Turismo");
@@ -47,26 +46,17 @@ public final class Tela extends JFrame implements ActionListener {
         telaLogin();
     }
 
-
-
     public static Tela getInstance(int altura, int largura){
         if (instancia == null){
             instancia = new Tela(altura, largura);
         }
         return instancia;
     }
-    // Botões
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, "funciona!", "Titulo", JOptionPane.WARNING_MESSAGE);
-        this.getContentPane().removeAll();
-        this.repaint();
-    }
     private void telaLogin(){
         // Criando botão de login
         botaoLogin = BotaoLogin.getInstance(largura, arialTitulo);
         componentes.add(botaoLogin.getBotaoLogin());
-        botaoLogin.getBotaoLogin().addActionListener(this);
+        botaoLogin.getBotaoLogin().addActionListener(this::login);
 
         // Criando campo de email
         email = new JTextField();
@@ -107,6 +97,21 @@ public final class Tela extends JFrame implements ActionListener {
 
         setVisible(true);
     }
+
+    private void login(ActionEvent actionEvent) {
+        try {
+            if (UsuarioController.verificaUsuario(email.getText(), Arrays.toString(senha.getPassword())) == null){
+                throw new CredenciaisInvalidasException("E-mail ou senha incorretos");
+            }
+            JOptionPane.showMessageDialog(null, "Login realizado", "", JOptionPane.PLAIN_MESSAGE);
+            tela.setVisible(false);
+        } catch (CredenciaisInvalidasException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "", JOptionPane.PLAIN_MESSAGE);
+            senha.setText("");
+        }
+
+    }
+
     private void telaCadastro(ActionEvent actionEvent) {
         this.getContentPane().removeAll();
         this.repaint();
