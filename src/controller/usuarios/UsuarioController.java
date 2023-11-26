@@ -3,6 +3,7 @@ package controller.usuarios;
 import java.util.List;
 
 import controller.PacoteViagemController;
+import model.conexao.DestinosConnectionModel;
 import model.conexao.PacoteViagemConnectionModel;
 import model.conexao.UserConnectionModelImpl;
 import model.pacotesViagem.CategoriaDestinoModel;
@@ -56,8 +57,9 @@ public class UsuarioController {
     }
 
     // TODO
-    public void adicionarPacote(PacoteViagemController pacote){}
-    public void consultarDestinos(String destino){}
+    public void adicionarPacote(PacoteViagemController pacote){
+        UserConnectionModelImpl.adicionarPacote(this, pacote);
+    }
     
     public List<PacoteViagemController> buscarPacotePorDestino(String destino){
         return PacoteViagemConnectionModel.buscarPacotePorDestino(destino);
