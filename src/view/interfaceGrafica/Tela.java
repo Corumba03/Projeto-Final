@@ -205,6 +205,8 @@ public final class Tela extends JFrame implements ActionListener {
             telaLogin();
         }catch (EmailInvalidoException | CampoVazioException | CPFInvalidoException | NomeInvalidoException e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+            senha.setText("");
+            confirmacaoSenha.setText("");
         }catch (SenhaInvalidaException | SenhaIncorretaException e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Senha inválida", JOptionPane.WARNING_MESSAGE);
             senha.setText("");
